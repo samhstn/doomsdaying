@@ -1,6 +1,6 @@
 module Main exposing (main)
 
-import Browser exposing (Document)
+import Browser
 import Doomsday
 import Html exposing (Html, button, div, option, select, span, text)
 import Html.Attributes exposing (attribute, class, href, selected, value)
@@ -20,9 +20,9 @@ import Time.Extra
 
 main : Program () Model Msg
 main =
-    Browser.document
+    Browser.element
         { init = init
-        , view = document
+        , view = view
         , update = update
         , subscriptions = \_ -> Sub.none
         }
@@ -168,21 +168,14 @@ type Msg
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( { day = 0, month = Nothing, year = 0, showing = True, generated = False }, Cmd.none )
-
-
-document : Model -> Document Msg
-document model =
-    { title = "Doomsday"
-    , body =
-        [ Html.node "link"
-            [ attribute "rel" "stylesheet"
-            , href "/style.css"
-            ]
-            []
-        , view model
-        ]
-    }
+    ( { day = 0
+      , month = Nothing
+      , year = 0
+      , showing = True
+      , generated = False
+      }
+    , Cmd.none
+    )
 
 
 view : Model -> Html Msg

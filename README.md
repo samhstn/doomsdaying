@@ -20,6 +20,6 @@ npm start
 ### Development
 
 ```bash
-# start the `elm-live` server and visit http://localhost:8080
+# start server and visit http://localhost:8080
 npm run watch
 ```

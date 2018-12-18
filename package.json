@@ -18,14 +18,20 @@
     "test": "npm run format:check && npm run test:elm",
     "test:elm": "elm-test",
     "test:watch": "elm-test --watch",
-    "watch": "elm-live src/Main.elm --port 8080"
+    "watch": "concurrently \"npm:watch:*\"",
+    "watch:elm": "elm-live src/Main.elm -- --output public/elm.min.js",
+    "watch:css": "nodemon -w style.css -e css -x 'cp style.css public/style.min.css'",
+    "watch:server": "nodemon -w public -e js,html,css -x 'node_modules/.bin/http-server'"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "concurrently": "^4.1.0",
     "elm-format": "^0.8.1",
-    "elm-test": "^0.19.0-rev3"
+    "elm-live": "^3.4.0",
+    "elm-test": "^0.19.0-rev3",
+    "nodemon": "^1.18.9"
   },
   "dependencies": {
     "elm": "^0.19.0-bugfix2",
