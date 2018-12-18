@@ -1,5 +1,6 @@
 module Time.Extra exposing
-    ( monthFromString
+    ( monthFromInt
+    , monthFromString
     , monthToInt
     , monthToString
     , months
@@ -37,6 +38,14 @@ monthToInt maybeMonth =
 
         Nothing ->
             Nothing
+
+
+monthFromInt : Int -> Maybe Month
+monthFromInt int =
+    List.indexedMap Tuple.pair months
+        |> List.filter (\( i, _ ) -> i == int)
+        |> List.head
+        |> Maybe.map Tuple.second
 
 
 weekdayStringFromInt : Maybe Int -> Maybe String
