@@ -1,5 +1,5 @@
 /node_modules
 /elm-stuff
 /index.html
-/public/style.css
-/public/elm.js
+/public/style*.css
+/public/elm*.js
