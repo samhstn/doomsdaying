@@ -188,72 +188,75 @@ document model =
 view : Model -> Html Msg
 view model =
     div
-        []
+        [ class "container" ]
         [ div
-            [ class "dropdown"
-            ]
-            [ select
-                [ onInput SelectDay ]
-                (option
-                    [ value "0"
-                    , selected (model.day == 0 || model.generated)
-                    ]
-                    [ text "Select a day"
-                    ]
-                    :: List.map
-                        (\opt ->
-                            option
-                                []
-                                [ text (String.fromInt opt)
-                                ]
-                        )
-                        (List.range 1 31)
-                )
+            [ class "row" ]
+            [ div
+                [ class "dropdown"
+                ]
+                [ select
+                    [ onInput SelectDay ]
+                    (option
+                        [ value "0"
+                        , selected (model.day == 0 || model.generated)
+                        ]
+                        [ text "Select a day"
+                        ]
+                        :: List.map
+                            (\opt ->
+                                option
+                                    []
+                                    [ text (String.fromInt opt)
+                                    ]
+                            )
+                            (List.range 1 31)
+                    )
+                ]
+            , div
+                [ class "dropdown"
+                ]
+                [ select
+                    [ onInput SelectMonth ]
+                    (option
+                        [ value "Nothing"
+                        , selected (model.month == Nothing || model.generated)
+                        ]
+                        [ text "Select a month"
+                        ]
+                        :: List.map
+                            (\opt ->
+                                option
+                                    []
+                                    [ text opt
+                                    ]
+                            )
+                            (List.map monthToString months)
+                    )
+                ]
+            , div
+                [ class "dropdown"
+                ]
+                [ select
+                    [ onInput SelectYear ]
+                    (option
+                        [ value "0"
+                        , selected (model.year == 0 || model.generated)
+                        ]
+                        [ text "Select a year"
+                        ]
+                        :: List.map
+                            (\opt ->
+                                option
+                                    []
+                                    [ text (String.fromInt opt)
+                                    ]
+                            )
+                            (List.range 1800 2100)
+                    )
+                ]
             ]
         , div
-            [ class "dropdown"
-            ]
-            [ select
-                [ onInput SelectMonth ]
-                (option
-                    [ value "Nothing"
-                    , selected (model.month == Nothing || model.generated)
-                    ]
-                    [ text "Select a month"
-                    ]
-                    :: List.map
-                        (\opt ->
-                            option
-                                []
-                                [ text opt
-                                ]
-                        )
-                        (List.map monthToString months)
-                )
-            ]
-        , div
-            [ class "dropdown"
-            ]
-            [ select
-                [ onInput SelectYear ]
-                (option
-                    [ value "0"
-                    , selected (model.year == 0 || model.generated)
-                    ]
-                    [ text "Select a year"
-                    ]
-                    :: List.map
-                        (\opt ->
-                            option
-                                []
-                                [ text (String.fromInt opt)
-                                ]
-                        )
-                        (List.range 1800 2100)
-                )
-            ]
-        , div
-            []
+            [ class "row" ]
             [ button
                 [ onClick Generate
                 , class "button"
@@ -262,7 +265,7 @@ view model =
                 ]
             ]
         , div
-            []
+            [ class "row" ]
             [ if complete model.day model.month model.year then
                 div
                     [ class "result" ]

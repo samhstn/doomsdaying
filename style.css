@@ -1,34 +1,46 @@
+html, body, .container {
+  height: 100%;
+}
+
 body {
   background: #2a2a2b;
   color: #fff;
   text-align: center;
   font-family: Arial, Helvetica;
+  margin: 0;
 }
 
-.sub-main{
-  width: 30%;
-  margin: 22px;
-  float: left;
+.container, .row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.row {
+  height: 30%;
+  width: 100%;
 }
 
 .button {
   text-align: center;
   cursor: pointer;
-  font-size: 24px;
-  padding: 20px 60px;
-  margin: 4rem;
+  font-size: 1rem;
+  padding: 1.5rem 2.5rem;
+  margin: 1rem;
   outline: none;
   background-color: #27ae60;
   border: none;
   border-radius: 5px;
   box-shadow: 0 9px #95a5a6;
+  color: #fff;
 }
 
 .pointer {
   cursor: pointer;
 }
 
-.button:hover{
+.button:hover {
   background-color: #2ecc71;
 }
 
@@ -39,23 +51,24 @@ body {
 }
 
 .result {
-  margin: 4rem;
-  font-size: 2rem;
+  font-size: 1.2rem;
 }
 
 .dropdown {
   position: relative;
   display: inline-block;
   vertical-align: middle;
-  margin: 10px;
+  margin: 0.5rem;
+  font-size: 1rem;
+  width: 70%;
 }
 
 .dropdown select {
+  width: 100%;
   background-color: #27ae60;
   color: #fff;
-  font-size: inherit;
-  padding: .5rem;
-  padding-right: 2.5rem;	
+  font-size: 90%;
+  padding: 1rem 2rem;
   border: 0;
   margin: 0;
   border-radius: 3px;
@@ -74,15 +87,15 @@ body {
 .dropdown::after { /*  Custom dropdown arrow */
   content: "\25BC";
   height: 1rem;
-  font-size: .625rem;
+  font-size: 1rem;
   line-height: 1;
-  right: 1.2rem;
+  right: 1rem;
   top: 50%;
   margin-top: -.5rem;
 }
 
 .dropdown::before { /*  Custom dropdown arrow cover */
-  width: 2rem;
+  width: 3rem;
   right: 0;
   top: 0;
   bottom: 0;
