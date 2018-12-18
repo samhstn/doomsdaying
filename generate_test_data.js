@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+// script is used to generate json which is used in our elm tests
+
 function weekdayToString(n) {
   return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][n];
 }

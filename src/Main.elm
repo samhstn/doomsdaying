@@ -2,7 +2,7 @@ module Main exposing (main)
 
 import Browser
 import Doomsday
-import Html exposing (Html, button, div, option, select, text)
+import Html exposing (Html, button, div, option, select, span, text)
 import Html.Attributes exposing (attribute, class, href, selected, value)
 import Html.Events exposing (onClick, onInput)
 import Random exposing (Generator)
@@ -188,73 +188,95 @@ view : Model -> Html Msg
 view model =
     div
         []
-        [ select
-            [ onInput SelectDay ]
-            (option
-                [ value "0"
-                , selected (model.day == 0)
+        [ div
+            [ class "dropdown"
+            ]
+            [ select
+                [ onInput SelectDay ]
+                (option
+                    [ value "0"
+                    , selected (model.day == 0 || model.generated)
+                    ]
+                    [ text "Select a day"
+                    ]
+                    :: List.map
+                        (\opt ->
+                            option
+                                []
+                                [ text (String.fromInt opt)
+                                ]
+                        )
+                        (List.range 1 31)
+                )
+            ]
+        , div
+            [ class "dropdown"
+            ]
+            [ select
+                [ onInput SelectMonth ]
+                (option
+                    [ value "Nothing"
+                    , selected (model.month == Nothing || model.generated)
+                    ]
+                    [ text "Select a month"
+                    ]
+                    :: List.map
+                        (\opt ->
+                            option
+                                []
+                                [ text opt
+                                ]
+                        )
+                        (List.map monthToString months)
+                )
+            ]
+        , div
+            [ class "dropdown"
+            ]
+            [ select
+                [ onInput SelectYear ]
+                (option
+                    [ value "0"
+                    , selected (model.year == 0 || model.generated)
+                    ]
+                    [ text "Select a year"
+                    ]
+                    :: List.map
+                        (\opt ->
+                            option
+                                []
+                                [ text (String.fromInt opt)
+                                ]
+                        )
+                        (List.range 1800 2100)
+                )
+            ]
+        , div
+            []
+            [ button
+                [ onClick Generate
+                , class "button"
                 ]
-                [ text "Select a day"
+                [ text "Generate Random Date"
                 ]
-                :: List.map
-                    (\opt ->
-                        option
-                            []
-                            [ text (String.fromInt opt)
-                            ]
-                    )
-                    (List.range 1 31)
-            )
-        , select
-            [ onInput SelectMonth ]
-            (option
-                [ value "Nothing"
-                , selected (model.month == Nothing)
-                ]
-                [ text "Select a month"
-                ]
-                :: List.map
-                    (\opt ->
-                        option
-                            []
-                            [ text opt
-                            ]
-                    )
-                    (List.map monthToString months)
-            )
-        , select
-            [ onInput SelectYear ]
-            (option
-                [ value "0"
-                , selected (model.year == 0)
-                ]
-                [ text "Select a year"
-                ]
-                :: List.map
-                    (\opt ->
-                        option
-                            []
-                            [ text (String.fromInt opt)
-                            ]
-                    )
-                    (List.range 1800 2100)
-            )
+            ]
         , div
             []
             [ if complete model.day model.month model.year then
                 div
-                    []
-                    [ text (String.fromInt model.day ++ " " ++ monthToString (Maybe.withDefault Jan model.month) ++ " " ++ String.fromInt model.year)
+                    [ class "result" ]
+                    [ text (String.fromInt model.day ++ " " ++ monthToString (Maybe.withDefault Jan model.month) ++ " " ++ String.fromInt model.year ++ " is on")
                     , case weekdayStringFromInt (Doomsday.calcWeekday model.day (monthToInt model.month) model.year) of
                         Just weekday ->
                             if model.showing then
-                                text (" is on " ++ weekday)
+                                text (" " ++ weekday)
 
                             else
-                                button
+                                span
                                     [ onClick Show
+                                    , class "pointer"
                                     ]
-                                    [ text "Show"
+                                    [ text " ...show"
                                     ]
 
                         Nothing ->
@@ -263,13 +285,5 @@ view model =
 
               else
                 text ""
-            ]
-        , div
-            []
-            [ button
-                [ onClick Generate
-                ]
-                [ text "Generate"
-                ]
             ]
         ]
