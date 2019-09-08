@@ -1,0 +1,88 @@
+# Weekdays as numbers
+
+We must learn to map weekdays to numbers and visa versa.
+
+The following days are mapped to the following numbers.
+
+```
+Sunday <-> 0
+Monday <-> 1
+Tuesday <-> 2
+Wednesday <-> 3
+Thursday <-> 4
+Friday <-> 5
+Saturday <-> 6
+```
+
+# Anchor days
+
+We must learn which "anchor day" is associated with each year.
+
+Calendars repeat themselves every 400 years, it wouldn't be too difficult
+to work out the "anchor day" of other years.
+
+```
+1800 - 1899 -> Friday <-> 5
+1900 - 1999 -> Wednesday <-> 3
+2000 - 2099 -> Tuesday <-> 2
+2100 - 2199 -> Sunday <-> 6
+```
+
+# Doomsday
+
+There are six steps to calculate the doomsday for any given year.
+
+We will use Februrary, 1978 as an example.
+
+1. How many times does 12 fit into the last 2 digits of the year?
+12 * 6 = 72, so the result is **6**.
+
+2. What is the remainder of the above calculation multiplied by 12?
+78 - 12 * 6 = 6, so the result is **6**.
+
+3. How many times does the number 4 fit into the result of calculation 2?
+4 fits in to 6 1 time, so the result is **1**.
+
+4. What is the anchor day?
+1900 - 1999 -> Wednesday <-> 3, so the result is **3**.
+
+5. Add up the results of steps 1-4
+6 + 6 + 1 + 3 = 16, so the result is **16**.
+
+6. What is the remainder when we subtract the largest multiple of 7 from the result of step 5?
+16 - 14 = 2. So the result is **2**.
+
+# Doomsday days for each month
+
+We now need to learn which day the doomsday falls on for each month.
+
+Remember the doomsday will repeat every 7 days.
+
+January:
+If we are in a leap year, 4, otherwise 3
+February:
+Always the last day in the month, so 29 for leap years, otherwise 28
+March:
+Pi Day is always a Doomsday, 14th March, so 14 (or 0 or 7).
+April, June, August, October, December:
+These even months simply map to 4, 6, 8, 10, 12
+May, July, September, November:
+These can be remembered by the mnemonic: I work 9-5 at the 7-11.
+May is the 5th Month and has doomsday 9
+July is the 7th Month and has doomsday 11
+September is the 9th Month and has doomsday 5
+November is the 9th Month and has doomsday 7
+
+So, for our example of 10th February, 1978, our year has a doomsday of 2 <-> Tuesday.
+We know that the last day in February is a Doomday. We know that 1978 isn't a leap year.
+So, the Doomsday will fall on 0th, 7th, 14th, 21st, 28th.
+We know that 7th is a Tuesday, 10th is 3 days later, so we arrive on our answer: **Friday**
+We could follow a more algorithmic approach, which would give us:
+
+(Calculated Doomsday + Day of week - Doomsday for year) mod 7
+
+= (2 + 10 - 28) mod 7
+
+= 40 mod 7
+
+= 5 <-> Friday
